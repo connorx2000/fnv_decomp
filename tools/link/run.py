@@ -6,7 +6,15 @@ import time
 
 from config import LOCAL
 from standalone_common import dump
-from run_guards import ReadOnlyInstallGuard, SaveGuard, documents_folder
+from run_guards import ReadOnlyInstallGuard, SaveGuard, documents_folder, resolve_save_dir
+
+
+def guarded_launch(saves, backup, install_files, start, guard=SaveGuard):
+    """Back up and verify the fixed-name saves, lock the installed files read-only, then call start(). start() is
+    only reached when every guard is in place; a failure in any of them stops before the game is launched. After
+    start() returns or raises, the saves are restored, or the error says where the backup was kept."""
+    with guard(saves, backup/'saves', backup/'save_checks.json'), ReadOnlyInstallGuard(install_files):
+        return start()
 
 
 def inventory(folder):
@@ -29,20 +37,23 @@ def run(game_dir, timeout=120, on_start=None):
     if (not build['passed'] or build['source_digest']!=source_digest()
             or build['exe_sha256']!=digest(LOCAL/'FalloutNV_src.exe')):
         raise ValueError('source or executable changed; run extract and build again')
+    # Find the save folder first: a custom or conflicting save location stops here, before anything is created.
+    try:documents=documents_folder()
+    except OSError:documents=None
+    saves=resolve_save_dir(documents,game_dir)
     before=inventory(game_dir)
     stamp=time.strftime('%Y%m%d_%H%M%S')+'_'+str(time.time_ns())
     backup=LOCAL/'runs'/stamp
     backup.mkdir(parents=True)
-    saves=documents_folder()/'My Games'/'FalloutNV'/'Saves'
     old_path=os.environ.get('PATH','')
+    def start():
+        os.environ['PATH']=str(game_dir)+os.pathsep+old_path
+        from debugger import smoke
+        return smoke(LOCAL,timeout,game_dir,on_start)
     try:
         # Existing installed files are opened read-only, denying write/delete
         # sharing for the lifetime of the child, including engine diagnostics.
-        with SaveGuard(saves,backup/'saves',backup/'save_checks.json'), ReadOnlyInstallGuard(
-                [game_dir/name for name in before]):
-            os.environ['PATH']=str(game_dir)+os.pathsep+old_path
-            from debugger import smoke
-            result=smoke(LOCAL,timeout,game_dir,on_start)
+        result=guarded_launch(saves,backup,[game_dir/name for name in before],start)
     finally:
         os.environ['PATH']=old_path
         after=inventory(game_dir)

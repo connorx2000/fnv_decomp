@@ -20,22 +20,102 @@ def fixed_save_names(folder):
     return {p.name for p in folder.iterdir() if p.is_file()
             and p.name.lower().startswith(('autosave','quicksave'))} if folder.exists() else set()
 
+
+class UnsupportedSaveLocation(RuntimeError):
+    """The launcher cannot be sure where the game will write its saves, so it does not start the game."""
+
+
+DEFAULT_SAVE_PATHS={'saves\\','saves/','saves'}
+# Files the game reads these settings from, in the order it reads them; later files override earlier ones.
+SAVE_SETTING_FILES=('Fallout_default.ini','Fallout.ini','FalloutPrefs.ini','FalloutCustom.ini')
+
+
+def ini_settings(path,keys):
+    """{key: [values]} for every assignment of the given keys in an ini file, any section, keys case-insensitive."""
+    found={}
+    for line in path.read_text(encoding='latin-1').splitlines():
+        line=line.split(';',1)[0].strip()
+        if '=' not in line or line.startswith('['):continue
+        key,value=(part.strip() for part in line.split('=',1))
+        if key.lower() in keys:found.setdefault(key.lower(),[]).append(value)
+    return found
+
+
+def find_file(folder,name):
+    """The file in folder whose name matches case-insensitively, or None; more than one is ambiguous."""
+    if not folder.is_dir():return None
+    matches=[p for p in folder.iterdir() if p.is_file() and p.name.lower()==name.lower()]
+    if len(matches)>1:raise UnsupportedSaveLocation('more than one %s in %s' % (name,folder))
+    return matches[0] if matches else None
+
+
+def resolve_save_dir(documents,game_dir):
+    """The folder the game will save to, or UnsupportedSaveLocation. Only the default location is supported:
+    Documents/My Games/FalloutNV/Saves, with SLocalSavePath=Saves\\ and bUseMyGamesDirectory unset or 1 in every
+    settings file the game reads. Anything else (a custom or conflicting save path, saves in the game folder) is
+    refused rather than guessed, because backing up the wrong folder would leave the real saves unprotected."""
+    if documents is None:raise UnsupportedSaveLocation('cannot locate the Documents folder')
+    my_games=Path(documents)/'My Games'/'FalloutNV'
+    if not my_games.is_dir():
+        raise UnsupportedSaveLocation('%s does not exist; start the original game once so it creates its settings'
+                                      % my_games)
+    keys={'slocalsavepath','bmygamesdirectory','busemygamesdirectory'}
+    seen={}
+    for name in SAVE_SETTING_FILES:
+        path=find_file(Path(game_dir) if name=='Fallout_default.ini' else my_games,name)
+        if path is None:continue
+        for key,values in ini_settings(path,keys).items():
+            for value in values:seen.setdefault(key,[]).append((path,value))
+    problems=[]
+    for path,value in seen.get('slocalsavepath',[]):
+        if value.strip('"').lower() not in DEFAULT_SAVE_PATHS:
+            problems.append('%s sets SLocalSavePath=%s' % (path,value))
+    for key in ('bmygamesdirectory','busemygamesdirectory'):
+        for path,value in seen.get(key,[]):
+            if value.strip()!='1':problems.append('%s sets %s=%s' % (path,key,value))
+    if problems:
+        raise UnsupportedSaveLocation('saves are not in the default location, so the launcher cannot protect them: '
+                                      +'; '.join(problems)+'. Only the default Saves\\ folder is supported.')
+    return my_games/'Saves'
+
+
 class SaveGuard:
     def __init__(self,saves,backup,report):
         self.saves=Path(saves);self.backup=Path(backup);self.report=Path(report)
 
+    def copy(self,source,target):
+        target.write_bytes(source.read_bytes())
+
     def __enter__(self):
+        """Back up every fixed-name save and read each copy back before anything starts; any failure stops here,
+        before the game is launched, and the original saves are left as they were."""
         self.backup.mkdir(parents=True,exist_ok=False);self.before={}
-        for name in set(FIXED_SAVES)|fixed_save_names(self.saves):
+        for name in sorted(set(FIXED_SAVES)|fixed_save_names(self.saves)):
             path=self.saves/name
             if path.exists():
                 stat=path.stat();data=path.read_bytes()
-                (self.backup/name).write_bytes(data)
+                self.copy(path,self.backup/name)
                 self.before[name]=dict(sha256=hashlib.sha256(data).hexdigest(),
                                       atime_ns=stat.st_atime_ns,mtime_ns=stat.st_mtime_ns)
             else:self.before[name]=None
         (self.backup/'before.json').write_text(json.dumps(self.before,indent=2))
+        self.verify_backup()
         return self
+
+    def verify_backup(self):
+        problems=[]
+        for name,old in self.before.items():
+            if old is None:continue
+            try:
+                if hashlib.sha256((self.backup/name).read_bytes()).hexdigest()!=old['sha256']:
+                    problems.append(name+': copy differs')
+            except OSError as exc:problems.append('%s: %s' % (name,exc))
+        try:
+            if json.loads((self.backup/'before.json').read_text())!=self.before:problems.append('before.json differs')
+        except (OSError,ValueError) as exc:problems.append('before.json: %s' % exc)
+        if problems:
+            raise RuntimeError('save backup could not be verified, so the game was not started; your saves were '
+                               'not touched. Backup folder: %s. Problems: %s' % (self.backup,'; '.join(problems)))
 
     def __exit__(self,*exception):
         errors=[];rows=[]
@@ -58,7 +138,17 @@ class SaveGuard:
                 rows.append(dict(name=name,passed=True,existed=bool(old)))
             except Exception as exc:errors.append(dict(name=name,error=str(exc)))
         self.report.write_text(json.dumps(dict(passed=not errors,backup=str(self.backup),files=rows,errors=errors),indent=2))
-        if errors:raise RuntimeError('fixed-name save restoration failed: '+repr(errors))
+        if errors:
+            # The backup folder is never deleted; say exactly where the user's original saves are.
+            raise SaveRestoreFailed('RESTORE FAILED: your original autosave/quicksave files were NOT all put back. '
+                                    'Copies of the originals are kept in %s (before.json lists their checksums). '
+                                    'Copy them back into %s yourself before playing. Details: %s'
+                                    % (self.backup,self.saves,'; '.join('%s: %s' % (e['name'],e['error'])
+                                                                         for e in errors)))
+
+
+class SaveRestoreFailed(RuntimeError):
+    """Restoring the fixed-name saves failed; the backup folder was kept."""
 
 
 class ReadOnlyInstallGuard:

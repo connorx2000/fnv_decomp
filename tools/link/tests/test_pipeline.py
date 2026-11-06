@@ -59,6 +59,119 @@ class PipelineTests(unittest.TestCase):
             self.assertFalse((saves/'quicksave.fos').exists())
             self.assertEqual((root/'backup/autosave.fos.test-output').read_bytes(),b'synthetic changed save')
 
+    # --- save location and backup guards: the game must never start unless the saves are safely backed up ---
+
+    def synthetic_profile(self,root,prefs=None,game_default='[General]\nSLocalSavePath=Saves\\\n'):
+        documents=root/'Documents';my_games=documents/'My Games'/'FalloutNV';saves=my_games/'Saves'
+        saves.mkdir(parents=True);game=root/'game';game.mkdir()
+        (game/'Fallout_default.ini').write_text(game_default)
+        (my_games/'Fallout.ini').write_text('[General]\nSLocalSavePath=Saves\\\n')
+        if prefs is not None:(my_games/'FalloutPrefs.ini').write_text(prefs)
+        (saves/'autosave.fos').write_bytes(b'synthetic autosave');(saves/'quicksave.fos').write_bytes(b'synthetic quick')
+        return documents,game,saves
+
+    def test_default_save_location_is_resolved(self):
+        from run_guards import resolve_save_dir
+        with tempfile.TemporaryDirectory() as d:
+            documents,game,saves=self.synthetic_profile(Path(d),prefs='[General]\nSLocalSavePath=Saves\\\n')
+            self.assertEqual(resolve_save_dir(documents,game),saves)
+
+    def test_custom_or_conflicting_save_path_is_refused(self):
+        from run_guards import UnsupportedSaveLocation, resolve_save_dir
+        cases={'custom path':'[General]\nSLocalSavePath=Saves\\Other\\\n',
+               'conflicts with Fallout.ini':'[General]\nSLocalSavePath=D:\\elsewhere\\\n',
+               'saves outside My Games':'[General]\nbUseMyGamesDirectory=0\n'}
+        for label,prefs in cases.items():
+            with self.subTest(label), tempfile.TemporaryDirectory() as d:
+                documents,game,saves=self.synthetic_profile(Path(d),prefs=prefs)
+                with self.assertRaisesRegex(UnsupportedSaveLocation,'not in the default location'):
+                    resolve_save_dir(documents,game)
+
+    def test_missing_profile_or_documents_is_refused(self):
+        from run_guards import UnsupportedSaveLocation, resolve_save_dir
+        with tempfile.TemporaryDirectory() as d:
+            with self.assertRaisesRegex(UnsupportedSaveLocation,'does not exist'):
+                resolve_save_dir(Path(d),Path(d))
+            with self.assertRaisesRegex(UnsupportedSaveLocation,'Documents'):
+                resolve_save_dir(None,Path(d))
+
+    def test_run_refuses_unsupported_location_before_starting_the_game(self):
+        import json, run
+        from run_guards import UnsupportedSaveLocation
+        with tempfile.TemporaryDirectory() as d:
+            root=Path(d);documents,game,saves=self.synthetic_profile(root,prefs='[General]\nSLocalSavePath=Elsewhere\\\n')
+            (game/'FalloutNV.exe').write_bytes(b'synthetic');(game/'Data').mkdir();local=root/'local';local.mkdir()
+            (local/'static_checks.json').write_text('{"passed": true}');(local/'FalloutNV_src.exe').write_bytes(b'x')
+            (local/'build_result.json').write_text(json.dumps(dict(passed=True,source_digest='s',
+                                                                   exe_sha256=hashlib.sha256(b'x').hexdigest())))
+            with patch.object(run,'LOCAL',local), patch.object(run,'documents_folder',return_value=documents), \
+                 patch('custom_exe.source_digest',return_value='s'), patch.object(run,'guarded_launch') as launch, \
+                 patch('debugger.smoke') as smoke:
+                with self.assertRaises(UnsupportedSaveLocation):
+                    run.run(game,timeout=5)
+                launch.assert_not_called();smoke.assert_not_called()
+            self.assertFalse((local/'runs').exists())
+            self.assertEqual((saves/'autosave.fos').read_bytes(),b'synthetic autosave')
+
+    def guarded(self,saves,backup,start,guard=SaveGuard):
+        import run
+        class NoLock:
+            def __init__(self,paths):pass
+            def __enter__(self):return self
+            def __exit__(self,*a):pass
+        with patch.object(run,'ReadOnlyInstallGuard',NoLock):
+            return run.guarded_launch(saves,backup,[],start,guard=guard)
+
+    def test_backup_that_does_not_read_back_stops_before_launch(self):
+        class CorruptingGuard(SaveGuard):
+            def copy(self,source,target):target.write_bytes(source.read_bytes()+b'!')
+        with tempfile.TemporaryDirectory() as d:
+            root=Path(d);documents,game,saves=self.synthetic_profile(root);started=[]
+            with self.assertRaisesRegex(RuntimeError,'could not be verified, so the game was not started'):
+                self.guarded(saves,root/'run',lambda:started.append(True),guard=CorruptingGuard)
+            self.assertEqual(started,[])
+            self.assertEqual((saves/'autosave.fos').read_bytes(),b'synthetic autosave')
+            self.assertEqual((saves/'quicksave.fos').read_bytes(),b'synthetic quick')
+
+    def test_backup_write_error_stops_before_launch(self):
+        class FailingGuard(SaveGuard):
+            def copy(self,source,target):raise OSError('synthetic disk full')
+        with tempfile.TemporaryDirectory() as d:
+            root=Path(d);documents,game,saves=self.synthetic_profile(root);started=[]
+            with self.assertRaisesRegex(OSError,'synthetic disk full'):
+                self.guarded(saves,root/'run',lambda:started.append(True),guard=FailingGuard)
+            self.assertEqual(started,[])
+            self.assertEqual((saves/'autosave.fos').read_bytes(),b'synthetic autosave')
+
+    def test_saves_restored_after_simulated_game_failure(self):
+        import json
+        with tempfile.TemporaryDirectory() as d:
+            root=Path(d);documents,game,saves=self.synthetic_profile(root)
+            def crashing_game():
+                (saves/'autosave.fos').write_bytes(b'written by the test run')
+                (saves/'autosave.fos.bak').write_bytes(b'new file')
+                raise RuntimeError('synthetic game crash')
+            with self.assertRaisesRegex(RuntimeError,'synthetic game crash'):
+                self.guarded(saves,root/'run',crashing_game)
+            self.assertEqual((saves/'autosave.fos').read_bytes(),b'synthetic autosave')
+            self.assertFalse((saves/'autosave.fos.bak').exists())
+            self.assertTrue(json.loads((root/'run/save_checks.json').read_text())['passed'])
+
+    def test_failed_restore_keeps_backup_and_reports_its_location(self):
+        import json
+        from run_guards import SaveRestoreFailed
+        with tempfile.TemporaryDirectory() as d:
+            root=Path(d);documents,game,saves=self.synthetic_profile(root);backup=root/'run'/'saves'
+            def game_that_blocks_restore():
+                # A folder where the save file was, so writing the original back fails.
+                (saves/'autosave.fos').unlink();(saves/'autosave.fos').mkdir()
+            with self.assertRaises(SaveRestoreFailed) as caught:
+                self.guarded(saves,root/'run',game_that_blocks_restore)
+            message=str(caught.exception)
+            self.assertIn('RESTORE FAILED',message);self.assertIn(str(backup),message)
+            self.assertEqual((backup/'autosave.fos').read_bytes(),b'synthetic autosave')
+            self.assertFalse(json.loads((root/'run/save_checks.json').read_text())['passed'])
+
     def test_map_lookup_reports_symbol_and_offset(self):
         from debugger import map_address
         with tempfile.TemporaryDirectory() as d:

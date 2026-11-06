@@ -247,6 +247,19 @@ them afterwards, so a crash cannot leave you with a broken autosave. That also m
 during the run are put back to what they were. **Use normal (numbered) saves to keep progress made with the custom
 exe.** The run's own versions are kept in that run's report folder.
 
+The launcher only starts the game once it is sure the backup is safe. It refuses to start, with an error saying why,
+when:
+
+- your saves are not in the default folder (`Documents/My Games/FalloutNV/Saves`): any `SLocalSavePath` other than
+  `Saves\`, or `bUseMyGamesDirectory=0`, in `Fallout_default.ini`, `Fallout.ini`, `FalloutPrefs.ini` or
+  `FalloutCustom.ini`. Custom save folders are not supported yet. Mod managers that redirect saves without changing
+  these files (for example a virtual file system) are not detected, so run the custom exe without them;
+- `My Games/FalloutNV` does not exist yet (start the original game once first);
+- a backed-up file cannot be read back with the same contents.
+
+If putting the saves back fails after a run, the launcher says so (`RESTORE FAILED`) and names the folder that holds
+your original files. That folder is never deleted; copy the files back from it yourself before playing.
+
 When the game exits, the launcher prints the path of the run report (`.local/custom-exe/runs/<time>/`). If the game
 crashed, it also prints a line like:
 
