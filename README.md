@@ -125,8 +125,8 @@ list of entries in the executable that are not functions.
 ## What this is, and what it is not
 
 - It is a reference: readable C++ that shows how the game works, and that reproduces the original machine code.
-- It is not a port, a source port or a replacement executable. Building it gives you object files to compare, not a
-  game.
+- It is not a port or a source port. The default build produces object files for comparison. The optional custom
+  executable build below combines those objects with locally extracted pieces from your own copy.
 - It does not contain, and will not accept, tools or instructions for getting around the game's copy protection.
 - It does not contain any part of the game's executable or data files. Addresses, function sizes and a few SHA-256
   fingerprints are the only facts about the executable in this repository.
@@ -171,6 +171,70 @@ many compile at once, and `--out results.json` writes the per-unit results (addr
 your executable).
 
 A full run compiles about 3,000 units; expect it to take a while.
+
+## Building a custom exe
+
+This optional Windows pipeline links the checked C++ objects into a custom executable. It follows the approach used
+by console decomps: only reconstructed code is kept in the repository; your own copy supplies the remaining pieces
+at build time. It still needs the installed game and its assets. Untested parts of the game may contain link mistakes;
+reaching the main menu does not establish that every quest, mod or save works.
+
+Use 64-bit Python 3.10 or newer, all three Microsoft compiler installations described above, and the **plain executable**
+from your own copy. The encrypted Steam executable does not work. These tools check `build/image_check.json` before
+extracting anything and supply no decryption or copy-protection bypass. The custom link pipeline is supported on
+Windows; Wine is **untested**.
+
+From a checkout of this branch, in PowerShell (replace the example paths with your own):
+
+```powershell
+$env:FNV_MSVC9_ROOT = 'C:/compilers/msvc9'       # VC/ and SDK/, 2008 SP1
+$env:FNV_MSVC9_RTM_ROOT = 'C:/compilers/msvc9rtm'
+$env:FNV_MSVC8_ROOT = 'C:/compilers/msvc8'
+# If the compiler helper DLLs are not beside cl.exe, add their installed folder:
+$env:PATH = 'C:/Program Files (x86)/Microsoft Visual Studio 9.0/Common7/IDE;' + $env:PATH
+python -m pip install capstone psutil
+python tools/link/custom_exe.py extract --image 'C:/my-own-copy/FalloutNV.exe' --jobs 4
+python tools/link/custom_exe.py build
+```
+
+`extract` compiles and validates the recipe objects first, including exception-handling tails, to determine what is
+still missing. It extracts initialized data tables and the TLS template as local C++ with symbolic pointer fields,
+the remaining runtime code as relocatable objects, and resources with their language and code-page metadata. It also
+retains a private input copy for validation. All of this, the object cache, maps, reports and final output live only
+under the git-ignored `.local/custom-exe/` folder. Changed source, headers or recipe require another `extract`.
+
+`build` compiles the extracted C++, links with VC9 `link.exe`, and checks storage, pointer targets, imports, TLS,
+resources and loader settings. Only after these checks pass does it write `.local/custom-exe/FalloutNV_src.exe`.
+It never installs the output or overwrites the original executable. The builder allows at most eight compiler
+processes, waits for a 3 GiB free RAM reserve, and stops its own tools if that reserve is lost. Failed extraction or
+builds must be corrected before using the output.
+
+**Never share the custom executable, object files or extracted folder.** They contain parts of your game. Keep the
+output outside the game installation. Nothing extracted by these commands belongs in a commit or a crash report.
+
+The optional bounded debugger launcher uses the game installation as working directory and finds its DLLs there:
+
+```powershell
+python tools/link/custom_exe.py run --game-dir 'C:/Games/Fallout New Vegas' --timeout 120
+```
+
+Quit normally before the timeout, or the launcher terminates and reaps its child. Existing installed files are held
+open read-only with write/delete sharing denied; an inventory checks for changes after the run. Fixed-name autosaves
+and quicksaves are backed up locally and restored, including their modification times. The launcher writes a local
+report and prints a function name and offset from `FalloutNV.map` for a crash in the rebuilt image. When reporting a
+crash, give the source revision, printed function/offset, exception code and steps to reproduce. Review any report
+before sharing; do not attach the executable, extracted data, memory dumps, saves or game files.
+
+Synthetic tests require no game or Microsoft compiler:
+
+```powershell
+python -m unittest discover -s tools/link/tests -v
+```
+
+This feature changes build tools, so under the contribution rules it needs maintainer review and a full build against
+the game. The ordinary `match` check reports **Needs a maintainer** for these tool changes even when affected code
+compiles identically. Use clean checkouts for `compare_builds.py plan`: that upstream planner inventories all files,
+including ignored build output. Keep `.local/` out of both comparison checkouts.
 
 ## Layout
 
