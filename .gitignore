@@ -11,3 +11,4 @@ results*.json
 /out/
 /obj/
 __pycache__/
+/.local/
