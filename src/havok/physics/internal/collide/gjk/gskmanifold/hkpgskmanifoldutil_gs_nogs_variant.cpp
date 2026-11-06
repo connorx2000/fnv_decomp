@@ -108,10 +108,10 @@ static __declspec(noinline) int FUN_00dad6a0(S_00dad6a0_Rec* rec, S_00dad6a0_Vec
     out->m_v0 = pa;
     return 0;
 }
-volatile int g_rec;
-volatile int g_vecs;
-volatile int g_out;
-volatile int g_res;
+extern volatile int g_rec;
+extern volatile int g_vecs;
+extern volatile int g_out;
+extern volatile int g_res;
 void CallTarget_dad6a0()
 {
     S_00dad6a0_Out* o = (S_00dad6a0_Out*)g_out;

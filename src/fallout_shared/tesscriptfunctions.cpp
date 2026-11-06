@@ -4069,7 +4069,7 @@ bool __cdecl FUN_005b9370(const ScriptParameter*, const char*, TESObjectREFR*, T
 }
 }  // namespace fnv_005b9370
 
-int g_TES;
+extern int g_TES;
 
 struct FUN_00456aa0_Class
 {
@@ -16164,7 +16164,7 @@ struct TlsBlock_t
     int unk264;
     unsigned char unk268;
 };
-__declspec(thread) TlsBlock_t g_tlsBlock;
+extern __declspec(thread) TlsBlock_t g_tlsBlock;
 
 extern unsigned int _tls_index;
 void* __fastcall FUN_0056a9f0(void* ecx);

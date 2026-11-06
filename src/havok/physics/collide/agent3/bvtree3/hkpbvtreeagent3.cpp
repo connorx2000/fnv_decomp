@@ -1,3 +1,6 @@
+void __cdecl FUN_00d2d460(int, int, int);
+extern "C" void __cdecl FUN_00da6dc0(void*);
+
 
 // src/havok/physics/collide/agent3/bvtree3/hkpbvtreeagent3.cpp - unit created 2026-10-16 from the whole-binary attribution (360 source path: d:/projects/fallout/code/havok/source/physics/collide/agent3/bvtree3/hkpbvtreeagent3.cpp).
 // Functions are listed by their @fnv annotations; compile flags inferred from the PC code.
@@ -19,9 +22,9 @@ void FUN_00d2d9d0(void* pObject)
     *(int*)((char*)pObject + 0x14) = 0;
     *(void**)((char*)pObject + 0x18) = (void*)&CallWithValueSource;
     *(void**)((char*)pObject + 0x1c) = (void*)&FUN_00d2d430;
-    *(int*)((char*)pObject + 0x20) = 0xd2d460;
+    *(int*)((char*)pObject + 0x20) = (int)&FUN_00d2d460;
     *(void**)((char*)pObject + 0x24) = (void*)&FUN_00d2d480;
-    *(int*)((char*)pObject + 4) = 0xda6dc0;
+    *(int*)((char*)pObject + 4) = (int)&FUN_00da6dc0;
     *(char*)((char*)pObject + 0x30) = 1;
 }
 

@@ -422,7 +422,7 @@ static __declspec(noinline) void FUN_00d6ecb0(FnvPacket* arg1, void* arg2, FnvNo
     FUN_00dced90(&arg1->unk30->vec, &arg1->unk34->vec, arg2);
 }
 extern "C" FnvNode* FetchNode();
-FnvPacket* volatile sourcePacket;
+extern FnvPacket* volatile sourcePacket;
 void* volatile sourceDest;
 void TargetCaller()
 {

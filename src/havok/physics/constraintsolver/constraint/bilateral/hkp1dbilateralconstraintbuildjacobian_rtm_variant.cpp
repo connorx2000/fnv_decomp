@@ -227,10 +227,10 @@ void __cdecl FUN_00dcf100(S_00dcf100_In* pInput, S_00dcf100_Cfg* pConfig, S_00dc
 void __cdecl FUN_00dcee70();
 extern double DAT_010c9300;
 static void FUN_00dcf460(Jac_dcf880* out, const Info_dcf880* info, const QueryIn_dcf880* in, float scale);
-Jac_dcf880* volatile g_out_dcf460;
-const Info_dcf880* volatile g_info_dcf460;
-const QueryIn_dcf880* volatile g_in_dcf460;
-volatile float g_scale_dcf460;
+extern Jac_dcf880* volatile g_out_dcf460;
+extern const Info_dcf880* volatile g_info_dcf460;
+extern const QueryIn_dcf880* volatile g_in_dcf460;
+extern volatile float g_scale_dcf460;
 void CallTarget_dcf460();
 struct Input_dcf5b0
 {

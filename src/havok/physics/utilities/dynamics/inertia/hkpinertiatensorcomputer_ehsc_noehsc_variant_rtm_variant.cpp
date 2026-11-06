@@ -258,9 +258,9 @@ struct Owner
     Sub m20;
 };
 static void FUN_00cebfd0(Owner* self, float value);
-Owner* volatile g_owner;
-volatile float g_value;
-Owner* volatile g_sink;
+extern Owner* volatile g_owner;
+extern volatile float g_value;
+extern Owner* volatile g_sink;
 void caller();
 
 extern const double DAT_010cbf40;

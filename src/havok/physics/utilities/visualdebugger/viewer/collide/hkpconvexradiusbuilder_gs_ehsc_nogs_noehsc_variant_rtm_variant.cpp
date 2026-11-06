@@ -51,7 +51,7 @@ struct D31Tbl
 {
     void* t;
 };
-__declspec(align(16)) D31Tbl tbl_0101b330;
+extern __declspec(align(16)) D31Tbl tbl_0101b330;
 D31Tbl2* __cdecl FUN_00c85750();
 extern float DAT_0101b31c;
 static float FUN_00de3110(int dummy, D31Mgr* mgr);

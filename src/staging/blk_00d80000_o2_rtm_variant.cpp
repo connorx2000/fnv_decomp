@@ -1647,7 +1647,7 @@ struct CleanupObject {
 
 };
 static void FUN_00d93ab0(CleanupObject* self);
-CleanupObject* volatile cleanupInput;
+extern CleanupObject* volatile cleanupInput;
 void CleanupEntry();
 extern "C" void _ReadWriteBarrier(void);
 extern "C" {
@@ -2302,9 +2302,9 @@ extern unsigned int DAT_010c92e0[4];
 extern const double DAT_010217d0;
 extern const LocalM128 DAT_011b6de0;
 extern LocalM128 DAT_010c7170;
-extern const float DAT_010cd644 = 1.0000000272564224e16f;
-extern const float DAT_0104e148 = -3.402820018375656e38f;
-extern const float DAT_0104da48 = 3.402820018375656e38f;
+__declspec(selectany) extern const float DAT_010cd644 = 1.0000000272564224e16f;
+__declspec(selectany) extern const float DAT_0104e148 = -3.402820018375656e38f;
+__declspec(selectany) extern const float DAT_0104da48 = 3.402820018375656e38f;
 float __cdecl FUN_00c98210(float a, float b);
 float __cdecl FUN_00c9e0f0(float a, float b);
 template<class T> struct TreeRef { T* p; TreeRef(T* q):p(q){} operator T*()const{return p;} T* operator->()const{return p;} };

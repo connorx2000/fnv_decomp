@@ -928,7 +928,7 @@ static __declspec(noinline) bool FUN_00dd2fb0(const __m128* a, const __m128* b)
 }
 
 volatile int g_in0, g_in1;
-volatile int g_out;
+extern volatile int g_out;
 void caller_dd2fb0()
 {
     g_out = FUN_00dd2fb0((const __m128*)g_in0, (const __m128*)g_in1);

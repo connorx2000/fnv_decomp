@@ -1,3 +1,11 @@
+extern int DAT_011f3d20;
+extern int DAT_011f3c90;
+extern int DAT_011f3c00;
+extern int DAT_011f3b70;
+extern int DAT_011f3ae0;
+extern int DAT_011f3780;
+extern int DAT_011f3810;
+
 
 // src/staging/blk_00a20000_o2.cpp - STAGING unit created 2026-10-16 by stage_units.py for functions with no attributed unit
 // (128 KB address window, o2 code style). Not a real source path: move functions to their real units once identified.
@@ -433,13 +441,13 @@ void __cdecl InsertBezPosKey();
 void __cdecl FUN_00a2baa0(int a, int b)
 {
     unsigned int idx = (b + a * 6) * 4;
-    *(void**)(0x011f3d20 + idx) = (void*)FUN_00a2b6d0;
-    *(void**)(0x011f3c90 + idx) = (void*)FUN_00a2af70;
-    *(void**)(0x011f3c00 + idx) = (void*)ComputeInterpolatedPosition;
-    *(void**)(0x011f3b70 + idx) = (void*)FUN_00a2b130;
-    *(void**)(0x011f3ae0 + idx) = (void*)IsLightEqual;
-    *(void**)(0x011f3780 + idx) = (void*)FUN_00a2b410;
-    *(void**)(0x011f3810 + idx) = (void*)InsertBezPosKey;
+    *(void**)((int)&DAT_011f3d20 + idx) = (void*)FUN_00a2b6d0;
+    *(void**)((int)&DAT_011f3c90 + idx) = (void*)FUN_00a2af70;
+    *(void**)((int)&DAT_011f3c00 + idx) = (void*)ComputeInterpolatedPosition;
+    *(void**)((int)&DAT_011f3b70 + idx) = (void*)FUN_00a2b130;
+    *(void**)((int)&DAT_011f3ae0 + idx) = (void*)IsLightEqual;
+    *(void**)((int)&DAT_011f3780 + idx) = (void*)FUN_00a2b410;
+    *(void**)((int)&DAT_011f3810 + idx) = (void*)InsertBezPosKey;
 }
 
 struct FUN_00a2ceb0_cls {

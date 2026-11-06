@@ -263,7 +263,7 @@ struct CubeBox
 };
 void __cdecl FUN_00de9590(CubeBox* box);
 #include <math.h>
-extern const float DAT_0104da4c = 1.1920928955078125e-7f;
+__declspec(selectany) extern const float DAT_0104da4c = 1.1920928955078125e-7f;
 extern float DAT_0104da48;
 float __cdecl FUN_00dea450(const hkVector4& firstStart, const hkVector4& firstEnd, const hkVector4& secondStart,
                            const hkVector4& secondEnd, float* firstParameter, float* secondParameter);

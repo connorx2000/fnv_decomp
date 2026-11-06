@@ -1,3 +1,7 @@
+// Distinct original implementations share reconstructed identifiers.
+// Keep each matched body under its own address-qualified name.
+#define Destroy Destroy_fnv_007cb510
+
 #include "../../../../include/SettingT.h"
 // fallout/interface/menus/startmenu.cpp: StartMenu, BGSSaveLoadUI_startmenu, StartMenu_Wrap, ListBox_Option and more (184 functions)
 
@@ -2666,7 +2670,7 @@ struct SM7d6
 {
     void FadeTile(int, int, unsigned int, float);
 };
-SM7d6* DAT_011daac0;
+__declspec(selectany) SM7d6* DAT_011daac0 = 0;
 
 // @fnv 0x007d0700
 void FUN_007d0700()
@@ -7543,7 +7547,7 @@ bool StartSaveMenu::FUN_007d5af0()
 }  // namespace fnv_007d5af0
 
 namespace fnv_007d1b30 {
-GlobalObject_004de370 g_011c71ac;
+__declspec(selectany) GlobalObject_004de370 g_011c71ac = {};
 
 // @fnv 0x007d1b30
 void FUN_007d1b30()

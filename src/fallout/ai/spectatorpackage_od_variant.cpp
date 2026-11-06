@@ -13,7 +13,7 @@
 #include "../../../include/BGSSaveFormBuffer.h"
 #include "../../../include/BGSLoadFormBuffer.h"
 #include "../../../include/NiPoint3.h"
-#include "../../../include/GameTimerRecord.h"
+#include "../../../include/GameTimerRecordGlobals.h"
 #include "../../../include/TESPackage.h"
 #include "../../../include/BSSimpleArray.h"
 #include "../../../include/Setting.h"
@@ -466,7 +466,7 @@ struct FUN_006797c0_shell
 
 
 
-GameTimerRecord g_timeGlobal;
+
 
 struct SpectatorPackageSave : SpectatorPackage
 {

@@ -1,3 +1,5 @@
+extern "C" void* const DAT_010ce81c[];
+
 #define FNV64_HKVECTOR4_OWN_ADD4_consthkVector4   // this unit keeps the out-of-line hkVector4 form
 #define FNV64_HKVECTOR4_OWN_ADDMUL4_consthkVector4_consthkVector4   // this unit keeps the out-of-line hkVector4 form
 #define FNV64_HKVECTOR4_OWN_MUL4_consthkSimdReal   // this unit keeps the out-of-line hkVector4 form
@@ -91,7 +93,7 @@ void __cdecl FUN_00d38ac0(void* first, void* second, void* third, int fourth)
     D38AC0Data data;
     data.unk08 = fourth;
     data.unk04 = 0;
-    data.unk00 = 0x10ce81c;
+    data.unk00 = (int)DAT_010ce81c;
     FUN_00d38130(second, first, third, &data);
 }
 

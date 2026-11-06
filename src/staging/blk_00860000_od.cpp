@@ -1093,7 +1093,7 @@ void __cdecl FUN_0086c150(float value)
     DAT_011ff8b0 = value;
 }
 
-MessageHandler* MessageHandler::pHandler;
+
 
 // Deletes the global MessageHandler instance if it exists and its byte at offset 4 is zero.
 // @fnv 0x0086cd80
@@ -3329,7 +3329,6 @@ FUN_00877fc0::~FUN_00877fc0()
 }
 
 // FUN_00878030 : resets a game object and returns it.
-extern char DAT_01400000;
 extern char FUN_00a00000;
 
 struct Member14_b3616
@@ -3352,7 +3351,7 @@ struct FUN_00878030_cls
 FUN_00878030_cls* FUN_00878030_cls::FUN_00878030()
 {
     m_Sub14.FUN_0044fae0();
-    m_pDatA = &DAT_01400000;
+    m_pDatA = reinterpret_cast<char*>(0x01400000u);
     m_uiFlags1 = 0xf00000;
     m_pDatB = &FUN_00a00000;
     m_uiFlags2 = 0x200000;

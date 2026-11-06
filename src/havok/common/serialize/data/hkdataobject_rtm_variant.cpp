@@ -1582,9 +1582,9 @@ struct DB8000_Self
     void FUN_00dc72e0(DB8000_Handle* h, int a);
 };
 static int __cdecl FUN_00db8000(DB8000_Self* self, DB8000_ItemArray* items);
-volatile DB8000_Self* g_db8000_self;
+extern volatile DB8000_Self* g_db8000_self;
 volatile DB8000_ItemArray* g_db8000_items;
-volatile int g_db8000_ret;
+extern volatile int g_db8000_ret;
 void call_db8000();
 struct DataClassMemberAccess
 {

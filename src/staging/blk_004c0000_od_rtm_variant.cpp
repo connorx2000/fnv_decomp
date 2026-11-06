@@ -431,7 +431,7 @@ struct G7d1
 {
     bool GetBoolValue();
 };
-G7d1 g_011c726c;
+extern G7d1 g_011c726c;
 void FUN_004dcda0();
 struct MyArr_GetAt
 {
@@ -941,7 +941,7 @@ unsigned int __cdecl FUN_004dc040();
 unsigned char __cdecl FUN_004dc0a0();
 extern int DAT_011f94b8;
 int __cdecl FUN_004dc0b0();
-char* DAT_01202fa0;
+extern char* DAT_01202fa0;
 char** FUN_004dc110();
 extern int DAT_011c6fbc;
 int __cdecl FUN_004dc1e0();

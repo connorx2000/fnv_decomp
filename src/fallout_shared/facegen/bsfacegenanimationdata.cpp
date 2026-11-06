@@ -835,7 +835,7 @@ void BSFaceGenAnimationData::FUN_0064bcc0(float afX, float afY, float afZ, int)
     *(char*)((char*)this + 0x189) = 1;
 }
 
-unsigned int _data_011c16bc;
+extern unsigned int _data_011c16bc;
 
 // @fnv 0x0064b160
 void BSFaceGenAnimationData::SetExpressionKeyframes(float* apQuantities)

@@ -204,7 +204,7 @@ struct FUN_00453500_shell
     void FUN_00453500(bool set);
 };
 struct BSAudio;
-BSAudio* DAT_011f6d98;
+extern BSAudio* DAT_011f6d98;
 BSAudio* FUN_00453a70();
 extern unsigned char DAT_011f9427;
 void FUN_00454440(unsigned char value);

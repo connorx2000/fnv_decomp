@@ -1,3 +1,5 @@
+extern "C" void* const DAT_010d460c[];
+
 #define FNV64_HKVECTOR4_PACKET_BODIES
 #define FNV64_HKVECTOR4_OWN_CONVERSION
 #define FNV64_HKVECTOR4_OWN_SETADD4_consthkVector4_consthkVector4
@@ -212,7 +214,7 @@ void __cdecl FUN_00da0760(void* pObject, void* b)
 {
     if (pObject)
     {
-        *(void**)((char*)pObject + 0) = (void*)0x010d460c;
+        *(void**)((char*)pObject + 0) = (void*)DAT_010d460c;
         ((FUN_00cb0a70_class*)((char*)pObject + 8))->FUN_00cb0a70((int)b);
     }
 }

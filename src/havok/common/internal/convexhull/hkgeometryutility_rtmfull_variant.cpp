@@ -713,7 +713,7 @@ class ObbAxis
     }
     static const float kHalf, kThree, kZero;
 };
-const float ObbAxis::kHalf = 0.5f, ObbAxis::kThree = 3.0f, ObbAxis::kZero = 0.0f;
+__declspec(selectany) const float ObbAxis::kHalf = 0.5f, ObbAxis::kThree = 3.0f, ObbAxis::kZero = 0.0f;
 struct ObbWord
 {
     int v;
@@ -872,11 +872,11 @@ static __declspec(noinline) float FUN_00d5b640(const float* vertexArray, int num
     }
     return b;
 }
-const float* volatile obbVerts;
-const ObbAxis* volatile obbAxes;
-ObbAxis* volatile obbDir;
-volatile int obbCount, obbStride, obbIter;
-volatile float obbStep, obbAnswer;
+extern const float* volatile obbVerts;
+extern const ObbAxis* volatile obbAxes;
+extern ObbAxis* volatile obbDir;
+extern volatile int obbCount, obbStride, obbIter;
+extern volatile float obbStep, obbAnswer;
 void obbCaller()
 {
     obbAnswer = FUN_00d5b640(obbVerts, obbCount, obbStride, obbAxes, obbStep, obbDir, obbIter);
@@ -891,7 +891,7 @@ extern "C" LocalM128 _mm_load_ss(const float*);
 extern "C" LocalM128 _mm_cmpeq_ss(LocalM128, LocalM128);
 extern "C" LocalM128 _mm_andnot_ps(LocalM128, LocalM128);
 extern "C" LocalM128 _mm_set_ss(float);
-extern const float DAT_010d1018 = 0.0000011920928955078125f;
+__declspec(selectany) extern const float DAT_010d1018 = 0.0000011920928955078125f;
 
 struct S4
 {
@@ -1264,11 +1264,11 @@ static __declspec(noinline) float FUN_00d5b990(const float* data, int count, int
     return volume;
 }
 
-const float* volatile probeData;
-int volatile probeCount, probeStride, probeLimit;
-Axis* volatile probeAxes;
-Axis* volatile probeOutput;
-volatile float probeSink;
+extern const float* volatile probeData;
+extern int volatile probeCount, probeStride, probeLimit;
+extern Axis* volatile probeAxes;
+extern Axis* volatile probeOutput;
+extern volatile float probeSink;
 void runProbe()
 {
     probeSink = FUN_00d5b990(probeData, probeCount, probeStride, probeAxes, probeOutput, probeLimit);

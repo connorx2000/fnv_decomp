@@ -407,7 +407,7 @@ static __declspec(noinline) int FUN_00dad720(S_00dad720_Rec* rec, S_00dad720_Vec
 }
 volatile int g_rec;
 volatile int g_vecs;
-volatile int g_out;
+extern volatile int g_out;
 volatile int g_res;
 void CallTarget_dad720()
 {

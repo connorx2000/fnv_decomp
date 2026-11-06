@@ -2558,7 +2558,10 @@ static __declspec(noinline) int FUN_00dd3120(const LocalM128* self, OW other, co
     b = _mm_add_ps(b, b);
     return _mm_movemask_ps(_mm_cmple_ps(c, b));
 }
-volatile int g_s, g_a, g_o, g_r;
+volatile int g_s;
+extern volatile int g_a;
+extern volatile int g_o;
+volatile int g_r;
 void mask_test_caller()
 {
     OW o((const LocalM128*)g_o);

@@ -301,7 +301,7 @@ struct FUN_004792f0_Class : FUN_004792c0_Class
 {
     void* __thiscall FUN_004792f0(unsigned int flags);
 };
-BGSImpactDataSet* BGSImpactDataSet::ms_pImpactDataSet;
+
 void FUN_00460160();
 void __cdecl FUN_00460190();
 template <int N> struct EndianSizeTag
@@ -318,13 +318,13 @@ struct TlsBlock462480
     unsigned char pad[0x294];
     int flag;
 };
-__declspec(thread) TlsBlock462480 g_tls462480;
+extern __declspec(thread) TlsBlock462480 g_tls462480;
 extern int __tls_index;
 struct FUN_00462480_Class
 {
     unsigned char __thiscall FUN_00462480();
 };
-__declspec(thread) unsigned int TLS_PAD[166];
+extern __declspec(thread) unsigned int TLS_PAD[166];
 struct S69570
 {
     unsigned char FUN_00469570();
