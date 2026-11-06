@@ -58,6 +58,10 @@ def available_memory():
 
 def compiler_count():
     # Processes may exit between enumeration and reading their name.
+    # Windows also reuses PIDs quickly; psutil caches process names on Windows.
+    # A reused PID must not inherit the previous compiler's cached name.
+    clear_cache=getattr(psutil.process_iter,'cache_clear',None)
+    if clear_cache:clear_cache()
     return sum((p.info.get('name') or '').lower() == 'cl.exe'
                for p in psutil.process_iter(['name']))
 

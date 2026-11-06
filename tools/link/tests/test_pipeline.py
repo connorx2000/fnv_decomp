@@ -15,6 +15,17 @@ from run_guards import SaveGuard
 
 
 class PipelineTests(unittest.TestCase):
+    def test_compiler_count_refreshes_reused_windows_pids(self):
+        import placelink
+        class Snapshot:
+            stale=True
+            def cache_clear(self):self.stale=False
+            def __call__(self,attributes):
+                names=['cl.exe']*9 if self.stale else ['cl.exe','python.exe',None]
+                return [SimpleNamespace(info=dict(name=n)) for n in names]
+        with patch.object(placelink.psutil,'process_iter',Snapshot()):
+            self.assertEqual(placelink.compiler_count(),1)
+
     def test_wrong_fingerprints_refuse_before_any_output(self):
         class UnrelatedImage:
             def read(self,address,size):return bytes(size)
