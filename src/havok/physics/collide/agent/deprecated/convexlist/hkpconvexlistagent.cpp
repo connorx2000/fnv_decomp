@@ -1,3 +1,7 @@
+extern "C" void* const DAT_010ceb94[];
+extern "C" void* const DAT_010cec68[];
+extern "C" void* const DAT_010ce8b0[];
+
 #define FNV64_HKVECTOR4_OWN_ASSIGN   // this unit defines its own hkVector4 assign form
 #include <new>
 #include "../../../../../../../include/hkArray.h"
@@ -253,7 +257,7 @@ static __forceinline hkpCollisionAgent* MakePredGskfAgent(
     void* agent = hkpCollisionAgent::operator new(0x80);
     ((void (__thiscall*)(hkpGskfAgent*, const hkpCdBody&, const hkpCdBody&,
                         hkpContactMgr*))FUN_00dacbd0)((hkpGskfAgent*)agent, bodyA, bodyB, mgr);
-    *(void**)agent = (void*)0x010ceb94;
+    *(void**)agent = (void*)DAT_010ceb94;
     return (hkpCollisionAgent*)agent;
 }
 
@@ -265,7 +269,7 @@ static __forceinline hkpCollisionAgent* MakeFlippedConvexListAgent(
     ((void (__thiscall*)(hkpConvexListAgent*, const hkpCdBody&, const hkpCdBody&,
                         const hkpCollisionInput&, hkpContactMgr*))FUN_00d33940)(
         (hkpConvexListAgent*)agent, bodyA, bodyB, input, mgr);
-    *(void**)agent = (void*)0x010cec68;
+    *(void**)agent = (void*)DAT_010cec68;
     return (hkpCollisionAgent*)agent;
 }
 
@@ -292,7 +296,7 @@ static __forceinline hkpCollisionAgent* MakeFlippedShapeCollectionAgent(
     ((void (__thiscall*)(hkpSymmetricAgent<hkpShapeCollectionAgent>*, const hkpCdBody&,
               const hkpCdBody&, const hkpCollisionInput&, hkpContactMgr*))FUN_00d440f0)(
         agent, bodyB, bodyA, input, mgr);
-    *(void**)agent = (void*)0x010ce8b0;
+    *(void**)agent = (void*)DAT_010ce8b0;
     return (hkpCollisionAgent*)agent;
 }
 
@@ -780,7 +784,7 @@ void* __cdecl FUN_00d34510(void* bodyA, void* bodyB, hkpCollisionInput* input, v
             void* agent = ((ChunkAllocator*)pMemoryRouter->m_heap)->allocate(iAllocSize);
             ((hkpCollisionAgent*)agent)->m_usMemSizeAndFlags = (unsigned short)iAllocSize;
             ((PfnD33940)FUN_00d33940)(agent, bodyB, bodyA, input, contactMgr);
-            *(void**)agent = (void*)0x10cec68;
+            *(void**)agent = (void*)DAT_010cec68;
             return agent;
         }
         case 1: {
@@ -807,7 +811,7 @@ void* __cdecl FUN_00d34510(void* bodyA, void* bodyB, hkpCollisionInput* input, v
                 void* agent = ((ChunkAllocator*)pMemoryRouter->m_heap)->allocate(iAllocSize);
                 ((hkpCollisionAgent*)agent)->m_usMemSizeAndFlags = (unsigned short)iAllocSize;
                 ((PfnD440f0)FUN_00d440f0)(agent, bodyB, bodyA, input, contactMgr);
-                *(void**)agent = (void*)0x10ce8b0;
+                *(void**)agent = (void*)DAT_010ce8b0;
                 return agent;
             }
             case 2: {
@@ -816,7 +820,7 @@ void* __cdecl FUN_00d34510(void* bodyA, void* bodyB, hkpCollisionInput* input, v
                 void* agent = ((ChunkAllocator*)pMemoryRouter->m_heap)->allocate(iAllocSize);
                 ((hkpCollisionAgent*)agent)->m_usMemSizeAndFlags = (unsigned short)iAllocSize;
                 ((PfnDacbd0)FUN_00dacbd0)(agent, bodyA, bodyB, contactMgr);
-                *(void**)agent = (void*)0x10ceb94;
+                *(void**)agent = (void*)DAT_010ceb94;
                 return agent;
             }
             }

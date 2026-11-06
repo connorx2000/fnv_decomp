@@ -1736,7 +1736,7 @@ BSMultiBound* __cdecl FUN_00439490(TESObjectREFR* reference);
 int __cdecl FUN_0043b290();
 extern "C" long __stdcall InterlockedCompareExchange(long volatile* Destination, long Exchange, long Comparand);
 typedef long(__stdcall* InterlockedCompareExchange_t)(long volatile*, long, long);
-InterlockedCompareExchange_t DAT_00fdf1bc = InterlockedCompareExchange;
+extern InterlockedCompareExchange_t DAT_00fdf1bc;
 void __cdecl FUN_0043b460(void* pDest, void* pSrc, unsigned int n);
 struct ObjB4037
 {

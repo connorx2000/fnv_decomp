@@ -631,7 +631,7 @@ void __cdecl FUN_00de9590(CubeBox* box)
 }
 
 #include <math.h>
-extern const float DAT_0104da4c = 1.1920928955078125e-7f;
+__declspec(selectany) extern const float DAT_0104da4c = 1.1920928955078125e-7f;
 extern float DAT_0104da48;
 
 // Computes the closest distance between two line segments defined by start and end points, writing clamped parameters to the output pointers.

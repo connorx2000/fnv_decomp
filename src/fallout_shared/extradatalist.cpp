@@ -1,3 +1,63 @@
+extern "C" const char DAT_01014344[];
+extern "C" const char DAT_010143a0[];
+extern "C" const char DAT_010143c0[];
+extern "C" const char DAT_01014468[];
+extern "C" const char DAT_0101455c[];
+extern "C" const char DAT_01015140[];
+extern "C" const char DAT_01014364[];
+extern "C" const char DAT_01015220[];
+extern "C" const char DAT_01015278[];
+extern "C" const char DAT_01014588[];
+extern "C" const char DAT_010144dc[];
+extern "C" const char DAT_01014504[];
+extern "C" const char DAT_01014320[];
+extern "C" const char DAT_01014534[];
+extern "C" const char DAT_010145d8[];
+extern "C" const char DAT_010145ac[];
+extern "C" const char DAT_01012cb0[];
+extern char DAT_010152d0[];
+extern "C" const char DAT_01012c78[];
+extern "C" const char DAT_01014304[];
+extern "C" const char DAT_01014380[];
+extern "C" const char DAT_010144ac[];
+extern "C" const char DAT_010150f8[];
+extern "C" const char DAT_010150b0[];
+extern "C" const char DAT_01015060[];
+extern "C" const char DAT_01015000[];
+extern "C" const char DAT_01014fa8[];
+extern "C" const char DAT_01014f50[];
+extern "C" const char DAT_01014f08[];
+extern "C" const char DAT_01014eb8[];
+extern "C" const char DAT_01014e60[];
+extern "C" const char DAT_01014e00[];
+extern "C" const char DAT_01014db0[];
+extern "C" const char DAT_01014d60[];
+extern "C" const char DAT_01014cf0[];
+extern "C" const char DAT_01014c90[];
+extern "C" const char DAT_01014c50[];
+extern "C" const char DAT_01014be0[];
+extern "C" const char DAT_01014b88[];
+extern "C" const char DAT_01014b28[];
+extern "C" const char DAT_01014ab8[];
+extern "C" const char DAT_01014a80[];
+extern "C" const char DAT_01014a18[];
+extern "C" const char DAT_010149c0[];
+extern "C" const char DAT_01014984[];
+extern "C" const char DAT_01014920[];
+extern "C" const char DAT_010148ec[];
+extern "C" const char DAT_010148b8[];
+extern "C" const char DAT_01014890[];
+extern "C" const char DAT_01014830[];
+extern "C" const char DAT_010147d8[];
+extern "C" const char DAT_01014788[];
+extern "C" const char DAT_01014728[];
+extern "C" const char DAT_010146b8[];
+extern "C" const char DAT_01014684[];
+extern "C" const char DAT_01014658[];
+extern "C" const char DAT_01014620[];
+extern "C" const char DAT_01014484[];
+extern "C" char DAT_01011584[];
+
 #include "../../include/BSStringT.h"
 // fallout_shared/extradatalist.cpp: ExtraDataList, Owner, DelStandIn, ExtraPatrolRefData and more (578 functions)
 
@@ -555,7 +615,7 @@ unsigned int FUN_0040fe20_shell::FUN_0040fe20()
     BSExtraData* work;
     unsigned int iCount;
 
-    ::g_011c3920.Lock(reinterpret_cast<const char*>(0x01014344) /* BaseExtraList::ItemsInList() */);
+    ::g_011c3920.Lock(reinterpret_cast<const char*>(DAT_01014344) /* BaseExtraList::ItemsInList() */);
     iCount = 0;
     work = pHead;
     while (work != 0)
@@ -635,7 +695,7 @@ BSExtraData* FUN_00410220_shell::FUN_00410220(unsigned char acType)
     pretval = FUN_0040f9e0(this, acType);
     if (!pretval)
     {
-        ::g_011c3920.Lock(reinterpret_cast<const char*>(0x010143a0) /* BaseExtraList::GetExtraData() */);
+        ::g_011c3920.Lock(reinterpret_cast<const char*>(DAT_010143a0) /* BaseExtraList::GetExtraData() */);
         BSExtraData* pwork = pHead;
         while (pwork)
         {
@@ -672,7 +732,7 @@ BSExtraData* FUN_004102d0_shell::FUN_004102d0(unsigned char acType)
     if (!HasExtraData(acType))
         return 0;
 
-    ::g_011c3920.Lock(reinterpret_cast<const char*>(0x010143c0) /* BaseExtraList::GetPrevExtraData() */);
+    ::g_011c3920.Lock(reinterpret_cast<const char*>(DAT_010143c0) /* BaseExtraList::GetPrevExtraData() */);
     BSExtraData* work = pHead;
     BSExtraData* prev = 0;
 
@@ -780,7 +840,7 @@ void FUN_00411ec0_shell::FUN_00411ec0(ExtraDataList* apCopy)
 {
     BSExtraData* pwork;
     ((EDLStandIn*)this)->FUN_00411fd0(1);
-    ::g_011c3920.Lock(reinterpret_cast<const char*>(0x01014468) /* ExtraDataList::CopyList() */);
+    ::g_011c3920.Lock(reinterpret_cast<const char*>(DAT_01014468) /* ExtraDataList::CopyList() */);
     if (apCopy)
     {
         pwork = apCopy->pHead;
@@ -886,7 +946,7 @@ extern RecursiveSpinLock g_011c3920;
 // @fnv 0x004126c0
 bool FUN_004126c0_shell::FUN_004126c0(ExtraDataList* apCompare, bool abCompareScriptAndOwnerData, bool bThrown)
 {
-    ::g_011c3920.Lock(reinterpret_cast<const char*>(0x0101455c) /* ExtraDataList::CompareListForContainer() */);
+    ::g_011c3920.Lock(reinterpret_cast<const char*>(DAT_0101455c) /* ExtraDataList::CompareListForContainer() */);
     bool bres = false;
     BSExtraData* work = apCompare->pHead;
     while (work)
@@ -1933,7 +1993,7 @@ void FUN_0041b2a0_shell::FUN_0041b2a0(TESObjectREFR* ref)
     }
     else
     {
-        _FNV_Warning(reinterpret_cast<const char*>(0x01015140) /* FORMS: Reference %s %08X has no parent save cell */, ((Ref_0041b2a0*)ref)->r76(),
+        _FNV_Warning(reinterpret_cast<const char*>(DAT_01015140) /* FORMS: Reference %s %08X has no parent save cell */, ((Ref_0041b2a0*)ref)->r76(),
                      ((TESSound*)ref)->Deallocate());
     }
 }
@@ -4929,7 +4989,7 @@ bool __cdecl FUN_0040f980(int);
 BSExtraData* FUN_0040ff60_shell::FUN_0040ff60(BSExtraData* apExtra)
 {
     BSExtraData* work;
-    ::g_011c3920.Lock(reinterpret_cast<const char*>(0x01014364) /* BaseExtraList::AddExtra() */);
+    ::g_011c3920.Lock(reinterpret_cast<const char*>(DAT_01014364) /* BaseExtraList::AddExtra() */);
     if (FUN_0040f980(((PatrolActorPackageData*)apExtra)->IsPatrolling()))
     {
         if (((BaseExtraList*)this)->pHead)
@@ -9460,7 +9520,7 @@ void FUN_00422940_shell::FUN_00422940(char* apBuffer)
         FUN_00435a60* pextra = reinterpret_cast<FUN_00435a60*>(GetExtraData(0x42));
         if (pextra)
         {
-            _fnv_call_845cc0(reinterpret_cast<const char*>(0x01015220) /* SAVELOAD: SetSavedAnimation() is being called when there is already a saved animation. */);
+            _fnv_call_845cc0(reinterpret_cast<const char*>(DAT_01015220) /* SAVELOAD: SetSavedAnimation() is being called when there is already a saved animation. */);
             ((FUN_00435c10_shell*)pextra)->FUN_00435c10();
         }
         else
@@ -9491,7 +9551,7 @@ void FUN_00422ac0_shell::FUN_00422ac0(char* apBuffer)
         ExtraSavedHavokData* pextra = (ExtraSavedHavokData*)GetExtraData(0x3d);
         if (pextra)
         {
-            _fnv_call_845cc0(reinterpret_cast<const char*>(0x01015278) /* SAVELOAD: SetSavedHavokData() is being called when there is already saved havok data. */);
+            _fnv_call_845cc0(reinterpret_cast<const char*>(DAT_01015278) /* SAVELOAD: SetSavedHavokData() is being called when there is already saved havok data. */);
             pextra->FUN_00435c10();
         }
         else
@@ -10183,7 +10243,7 @@ struct ExtraDataList_shell : public BaseExtraList
 // @fnv 0x004127e0
 bool ExtraDataList_shell::FUN_004127e0(ExtraDataList_shell* apCompare)
 {
-    ::g_011c3920.Lock(reinterpret_cast<const char*>(0x01014588) /* ExtraDataList::CompareList() */);
+    ::g_011c3920.Lock(reinterpret_cast<const char*>(DAT_01014588) /* ExtraDataList::CompareList() */);
 
     bool bres = false;
     BSExtraData* work = apCompare->pHead;
@@ -10393,7 +10453,7 @@ void FUN_00419bb0_cls::FUN_00419bb0(float value)
     }
 }
 
-unsigned int _data_011c16bc;
+extern unsigned int _data_011c16bc;
 
 struct FUN_00431f60 : LegacyExtraData
 {
@@ -11574,7 +11634,7 @@ void ExtraDataListCopyListForContainer::FUN_004121e0(ExtraDataList* copy, bool d
     BSExtraData* work;
     bool bHasResultObj;
 
-    ::g_011c3920.Lock(reinterpret_cast<const char*>(0x010144dc) /* ExtraDataList::CopyListForContainer() */);
+    ::g_011c3920.Lock(reinterpret_cast<const char*>(DAT_010144dc) /* ExtraDataList::CopyListForContainer() */);
 
     work = *reinterpret_cast<BSExtraData**>(reinterpret_cast<char*>(copy) + 4);
 
@@ -11653,7 +11713,7 @@ struct FUN_00412380_shell
 // @fnv 0x00412380
 void FUN_00412380_shell::FUN_00412380(ExtraDataList* apCopy)
 {
-    ::g_011c3920.Lock(reinterpret_cast<const char*>(0x01014504) /* ExtraDataList::DuplicateExtraListForContainer() */);
+    ::g_011c3920.Lock(reinterpret_cast<const char*>(DAT_01014504) /* ExtraDataList::DuplicateExtraListForContainer() */);
 
     BSExtraData* work = reinterpret_cast<BSExtraData**>(reinterpret_cast<char*>(apCopy) + 4)[0];
 
@@ -11717,7 +11777,7 @@ struct XList
 // @fnv 0x0040fcb0
 void XList::FUN_0040fcb0(bool abDelete)
 {
-    DAT_011c3920.Enter(reinterpret_cast<const char*>(0x01014320) /* BaseExtraList::RemoveAllDefault() */);
+    DAT_011c3920.Enter(reinterpret_cast<const char*>(DAT_01014320) /* BaseExtraList::RemoveAllDefault() */);
     ResetTlsBufferIfListMatches(this);
     XData* prev;
     XData* cur = head;
@@ -13889,7 +13949,7 @@ struct ScriptCopyHelper
 // @fnv 0x00412490
 void ExtraCopyList::FUN_00412490(ExtraCopyList* source, bool transfer)
 {
-    ((ExtraCopyLock*)&DAT_011c3920)->FUN_0040fbf0(reinterpret_cast<const char*>(0x01014534) /* ExtraDataList::CopyListForReference() */);
+    ((ExtraCopyLock*)&DAT_011c3920)->FUN_0040fbf0(reinterpret_cast<const char*>(DAT_01014534) /* ExtraDataList::CopyListForReference() */);
     BSExtraData* extra = source->pHead;
     bool advance = true;
     while (extra)
@@ -15344,7 +15404,7 @@ void loader::List::LoadExtraData(File* file, void* owner)
         unsigned int count = size / 4;
         if (size % 4)
         {
-            warning(reinterpret_cast<const char*>(0x010145d8) /* MASTERFILE: Invalid Extra Data - Region List in file "%s". */, file->FUN_00891170());
+            warning(reinterpret_cast<const char*>(DAT_010145d8) /* MASTERFILE: Invalid Extra Data - Region List in file "%s". */, file->FUN_00891170());
             break;
         }
         RegionList* m_pRegions = new RegionList(0);
@@ -15429,7 +15489,7 @@ void loader::List::LoadExtraData(File* file, void* owner)
         }
         if (!ragdollData->LoadRagdollChunk(file))
         {
-            warning(reinterpret_cast<const char*>(0x010145ac) /* MASTERFILE: Failed to load RagDoll Data. */);
+            warning(reinterpret_cast<const char*>(DAT_010145ac) /* MASTERFILE: Failed to load RagDoll Data. */);
             FUN_00410020(extra, true);
         }
         break;
@@ -19852,14 +19912,14 @@ unsigned short ExtraDataSaveSizer::FUN_00422c40(unsigned int aiFlags, ObjQ* apOb
         if (pRec)
         {
             FormQ* pForm = FUN_004839c0(pRec->formID);
-            FUN_0040fbe0(reinterpret_cast<const char*>(0x01012cb0) /* GetSaveSize(): %-5i for form %08X %s with flags %08X ending at line %i in file %s */,
+            FUN_0040fbe0(reinterpret_cast<const char*>(DAT_01012cb0) /* GetSaveSize(): %-5i for form %08X %s with flags %08X ending at line %i in file %s */,
                          size - start, pRec->formID, pForm->f76(), *(int*)((char*)pRec + 5), 0x29b5,
-                         reinterpret_cast<const char*>(0x010152d0) /* D:\_Fallout3\Platforms\Common\Code\Fallout Shared\ExtraDataList.cpp */);
+                         reinterpret_cast<const char*>(DAT_010152d0) /* D:\_Fallout3\Platforms\Common\Code\Fallout Shared\ExtraDataList.cpp */);
         }
         else
         {
-            FUN_0040fbe0(reinterpret_cast<const char*>(0x01012c78) /* GetSaveSize(): %-5i ending at line %i in file %s */, size - start, 0x29b5,
-                         reinterpret_cast<const char*>(0x010152d0) /* D:\_Fallout3\Platforms\Common\Code\Fallout Shared\ExtraDataList.cpp */);
+            FUN_0040fbe0(reinterpret_cast<const char*>(DAT_01012c78) /* GetSaveSize(): %-5i ending at line %i in file %s */, size - start, 0x29b5,
+                         reinterpret_cast<const char*>(DAT_010152d0) /* D:\_Fallout3\Platforms\Common\Code\Fallout Shared\ExtraDataList.cpp */);
         }
     }
     DAT_011c3920.FUN_0040fba0();
@@ -20162,7 +20222,7 @@ void* __cdecl memset(void*, int, unsigned int);
 // @fnv 0x0040fae0
 void FUN_0040fae0_shell::FUN_0040fae0(bool abDelete)
 {
-    ::g_011c3920.Lock(reinterpret_cast<const char*>(0x01014304) /* BaseExtraList::RemoveAll() */);
+    ::g_011c3920.Lock(reinterpret_cast<const char*>(DAT_01014304) /* BaseExtraList::RemoveAll() */);
     ResetTlsBufferIfListMatches(this);
     if (abDelete)
     {
@@ -20211,7 +20271,7 @@ void FUN_00410020_t::FUN_00410020(BSExtraData* apExtra, bool abDelete)
 {
     if (!apExtra)
         return;
-    ::g_011c3920.Lock(reinterpret_cast<const char*>(0x01014380) /* BaseExtraList::RemoveExtra() */);
+    ::g_011c3920.Lock(reinterpret_cast<const char*>(DAT_01014380) /* BaseExtraList::RemoveExtra() */);
     int etype = ((PatrolActorPackageData*)apExtra)->IsPatrolling();
     BSExtraData* pprev = FUN_004102d0(etype);
     if (pprev)
@@ -20248,7 +20308,7 @@ extern FUN_004121b0_shell* g_BGSSaveLoadGame;
 // @fnv 0x004120b0
 void FUN_004120b0_shell::FUN_004120b0()
 {
-    ::g_011c3920.Lock(reinterpret_cast<const char*>(0x010144ac) /* ExtraDataList::RemoveNonPersistentCellData() */);
+    ::g_011c3920.Lock(reinterpret_cast<const char*>(DAT_010144ac) /* ExtraDataList::RemoveNonPersistentCellData() */);
     ResetTlsBufferIfListMatches((BaseExtraList*)this);
     BSExtraData* pwork = ((BaseExtraList*)this)->pHead;
     BSExtraData* plast = 0;
@@ -20532,9 +20592,9 @@ void ResolveExtraOwner::FUN_00416be0(TESForm* owner)
                 ResolveFormID(&pNode, owner->GetFile(-1));
                 sourceFile->ref = dynamic_cast<TESObjectREFR*>(FUN_004839c0(pNode));
                 if (!sourceFile->ref)
-                    FNV_Warning(reinterpret_cast<const char*>(0x010150f8) /* MASTERFILE: Could not find radio range position ref (%08X). */, pNode);
+                    FNV_Warning(reinterpret_cast<const char*>(DAT_010150f8) /* MASTERFILE: Could not find radio range position ref (%08X). */, pNode);
                 else if (reinterpret_cast<ResolveForm*>(reinterpret_cast<TESForm*>(sourceFile->ref))->FUN_00575d10())
-                    FNV_Warning(reinterpret_cast<const char*>(0x010150b0) /* MASTERFILE: Invalid radio range position ref (%08X). Exteriors only. */, pNode);
+                    FNV_Warning(reinterpret_cast<const char*>(DAT_010150b0) /* MASTERFILE: Invalid radio range position ref (%08X). Exteriors only. */, pNode);
             }
             break;
         }
@@ -20548,7 +20608,7 @@ void ResolveExtraOwner::FUN_00416be0(TESForm* owner)
                 data->unk04 = reinterpret_cast<int>(dynamic_cast<TESKey*>(FUN_004839c0(id)));
                 if (!data->unk04)
                 {
-                    FNV_Warning(reinterpret_cast<const char*>(0x01015060) /* MASTERFILE: Unable to find key %08X for lock data. Lock will be removed. */, id);
+                    FNV_Warning(reinterpret_cast<const char*>(DAT_01015060) /* MASTERFILE: Unable to find key %08X for lock data. Lock will be removed. */, id);
                     failed = true;
                 }
             }
@@ -20583,7 +20643,7 @@ void ResolveExtraOwner::FUN_00416be0(TESForm* owner)
                 data->FUN_007037c0(id);
             else
                 FNV_Warning(
-                    reinterpret_cast<const char*>(0x01015000) /* MASTERFILE: Could not find MediaLocationController (%08X) for a AudioMarker in extra data list. */,
+                    reinterpret_cast<const char*>(DAT_01015000) /* MASTERFILE: Could not find MediaLocationController (%08X) for a AudioMarker in extra data list. */,
                     id);
             break;
         }
@@ -20598,7 +20658,7 @@ void ResolveExtraOwner::FUN_00416be0(TESForm* owner)
             extra->form = FUN_004839c0(id);
             if (!extra->form)
             {
-                FNV_Warning(reinterpret_cast<const char*>(0x01014fa8) /* MASTERFILE: Unable to find ownership owner form %08X. Ownership will be removed. */, id);
+                FNV_Warning(reinterpret_cast<const char*>(DAT_01014fa8) /* MASTERFILE: Unable to find ownership owner form %08X. Ownership will be removed. */, id);
                 FUN_00410020(reinterpret_cast<BSExtraData*>(extra), true);
             }
             break;
@@ -20610,7 +20670,7 @@ void ResolveExtraOwner::FUN_00416be0(TESForm* owner)
             extra->form = dynamic_cast<TESGlobal*>(FUN_004839c0(id));
             if (!extra->form)
             {
-                FNV_Warning(reinterpret_cast<const char*>(0x01014f50) /* MASTERFILE: Unable to find ownership condition global %08X. Ownership will be removed. */,
+                FNV_Warning(reinterpret_cast<const char*>(DAT_01014f50) /* MASTERFILE: Unable to find ownership condition global %08X. Ownership will be removed. */,
                             id);
                 FUN_00410020(reinterpret_cast<BSExtraData*>(extra), true);
             }
@@ -20623,7 +20683,7 @@ void ResolveExtraOwner::FUN_00416be0(TESForm* owner)
             extra->form = dynamic_cast<AlchemyItem*>(FUN_004839c0(id));
             if (!extra->form)
             {
-                FNV_Warning(reinterpret_cast<const char*>(0x01014f08) /* MASTERFILE: Unable to find poison %08X. Poison data will be removed. */, id);
+                FNV_Warning(reinterpret_cast<const char*>(DAT_01014f08) /* MASTERFILE: Unable to find poison %08X. Poison data will be removed. */, id);
                 FUN_00410020(reinterpret_cast<BSExtraData*>(extra), true);
             }
             break;
@@ -20635,7 +20695,7 @@ void ResolveExtraOwner::FUN_00416be0(TESForm* owner)
             extra->form = dynamic_cast<TESClimate*>(FUN_004839c0(id));
             if (!extra->form)
             {
-                FNV_Warning(reinterpret_cast<const char*>(0x01014eb8) /* MASTERFILE: Unable to find cell climate %08X. Climate data will be removed. */, id);
+                FNV_Warning(reinterpret_cast<const char*>(DAT_01014eb8) /* MASTERFILE: Unable to find cell climate %08X. Climate data will be removed. */, id);
                 FUN_00410020(reinterpret_cast<BSExtraData*>(extra), true);
             }
             break;
@@ -20647,7 +20707,7 @@ void ResolveExtraOwner::FUN_00416be0(TESForm* owner)
             extra->form = dynamic_cast<TESImageSpace*>(FUN_004839c0(id));
             if (!extra->form)
             {
-                FNV_Warning(reinterpret_cast<const char*>(0x01014e60) /* MASTERFILE: Unable to find cell imagespace %08X. ImageSpace data will be removed. */, id);
+                FNV_Warning(reinterpret_cast<const char*>(DAT_01014e60) /* MASTERFILE: Unable to find cell imagespace %08X. ImageSpace data will be removed. */, id);
                 FUN_00410020(reinterpret_cast<BSExtraData*>(extra), true);
             }
             break;
@@ -20665,7 +20725,7 @@ void ResolveExtraOwner::FUN_00416be0(TESForm* owner)
             extra->form = dynamic_cast<BGSAcousticSpace*>(FUN_004839c0(id));
             if (!extra->form)
             {
-                FNV_Warning(reinterpret_cast<const char*>(0x01014e00) /* MASTERFILE: Unable to find cell acoustic space %08X. AcousticSpace data will be removed. */,
+                FNV_Warning(reinterpret_cast<const char*>(DAT_01014e00) /* MASTERFILE: Unable to find cell acoustic space %08X. AcousticSpace data will be removed. */,
                             id);
                 FUN_00410020(reinterpret_cast<BSExtraData*>(extra), true);
             }
@@ -20678,7 +20738,7 @@ void ResolveExtraOwner::FUN_00416be0(TESForm* owner)
             extra->form = dynamic_cast<TESWaterForm*>(FUN_004839c0(id));
             if (!extra->form)
             {
-                FNV_Warning(reinterpret_cast<const char*>(0x01014db0) /* MASTERFILE: Unable to find cell water type %08X. Water data will be removed. */, id);
+                FNV_Warning(reinterpret_cast<const char*>(DAT_01014db0) /* MASTERFILE: Unable to find cell water type %08X. Water data will be removed. */, id);
                 FUN_00410020(reinterpret_cast<BSExtraData*>(extra), true);
             }
             break;
@@ -20690,7 +20750,7 @@ void ResolveExtraOwner::FUN_00416be0(TESForm* owner)
             extra->form = dynamic_cast<BGSMusicType*>(FUN_004839c0(id));
             if (!extra->form)
             {
-                FNV_Warning(reinterpret_cast<const char*>(0x01014d60) /* MASTERFILE: Unable to find cell music type %08X. Music data will be removed. */, id);
+                FNV_Warning(reinterpret_cast<const char*>(DAT_01014d60) /* MASTERFILE: Unable to find cell music type %08X. Music data will be removed. */, id);
                 FUN_00410020(reinterpret_cast<BSExtraData*>(extra), true);
             }
             break;
@@ -20703,7 +20763,7 @@ void ResolveExtraOwner::FUN_00416be0(TESForm* owner)
             if (!extra->form)
             {
                 FNV_Warning(
-                    reinterpret_cast<const char*>(0x01014cf0) /* MASTERFILE: Unable to find package start location cell %08X. Package start location extra data will be removed. */,
+                    reinterpret_cast<const char*>(DAT_01014cf0) /* MASTERFILE: Unable to find package start location cell %08X. Package start location extra data will be removed. */,
                     id);
                 FUN_00410020(reinterpret_cast<BSExtraData*>(extra), true);
             }
@@ -20717,7 +20777,7 @@ void ResolveExtraOwner::FUN_00416be0(TESForm* owner)
             if (!extra->form)
             {
                 FNV_Warning(
-                    reinterpret_cast<const char*>(0x01014c90) /* MASTERFILE: Unable to find enable state parent %08X. Enable state parent data will be removed. */,
+                    reinterpret_cast<const char*>(DAT_01014c90) /* MASTERFILE: Unable to find enable state parent %08X. Enable state parent data will be removed. */,
                     id);
                 FUN_00410020(reinterpret_cast<BSExtraData*>(extra), true);
             }
@@ -20728,7 +20788,7 @@ void ResolveExtraOwner::FUN_00416be0(TESForm* owner)
                     reinterpret_cast<ResolveForm*>(extra->form)->FUN_005d43c0()->FUN_0041dcd0(ref);
                 else
                 {
-                    FNV_Warning(reinterpret_cast<const char*>(0x01014c50) /* MASTERFILE: Enable state parent loop detected. Parent removed. */);
+                    FNV_Warning(reinterpret_cast<const char*>(DAT_01014c50) /* MASTERFILE: Enable state parent loop detected. Parent removed. */);
                     FUN_00410020(reinterpret_cast<BSExtraData*>(extra), true);
                 }
             }
@@ -20742,7 +20802,7 @@ void ResolveExtraOwner::FUN_00416be0(TESForm* owner)
             if (!extra->form)
             {
                 FNV_Warning(
-                    reinterpret_cast<const char*>(0x01014be0) /* MASTERFILE: Unable to find random door teleport marker %08X. Random door teleport marker data will be removed. */,
+                    reinterpret_cast<const char*>(DAT_01014be0) /* MASTERFILE: Unable to find random door teleport marker %08X. Random door teleport marker data will be removed. */,
                     id);
                 FUN_00410020(reinterpret_cast<BSExtraData*>(extra), true);
             }
@@ -20753,7 +20813,7 @@ void ResolveExtraOwner::FUN_00416be0(TESForm* owner)
             {
                 ResolveActor* actor = reinterpret_cast<ResolveActor*>(owner);
                 if (actor->FUN_004181e0() && actor->FUN_004181e0()->FUN_005f0b00() > 0)
-                    FNV_Warning(reinterpret_cast<const char*>(0x01014b88) /* MASTERFILE: Ragdoll data found on alive actor %08X. Ragdoll data will be removed. */,
+                    FNV_Warning(reinterpret_cast<const char*>(DAT_01014b88) /* MASTERFILE: Ragdoll data found on alive actor %08X. Ragdoll data will be removed. */,
                                 owner->GetFormID());
             }
             break;
@@ -20765,7 +20825,7 @@ void ResolveExtraOwner::FUN_00416be0(TESForm* owner)
             extra->form = dynamic_cast<TESObjectREFR*>(FUN_004839c0(id));
             if (!extra->form)
             {
-                FNV_Warning(reinterpret_cast<const char*>(0x01014b28) /* MASTERFILE: Unable to find linked reference %08X. Linked reference data will be removed. */,
+                FNV_Warning(reinterpret_cast<const char*>(DAT_01014b28) /* MASTERFILE: Unable to find linked reference %08X. Linked reference data will be removed. */,
                             id);
                 FUN_00410020(reinterpret_cast<BSExtraData*>(extra), true);
             }
@@ -20784,7 +20844,7 @@ void ResolveExtraOwner::FUN_00416be0(TESForm* owner)
                 if (list && !extra->array->items[index])
                 {
                     FNV_Warning(
-                        reinterpret_cast<const char*>(0x01014ab8) /* MASTERFILE: Unable to find occlusion plane reference %08X. Occlusion plane reference data will be removed. */,
+                        reinterpret_cast<const char*>(DAT_01014ab8) /* MASTERFILE: Unable to find occlusion plane reference %08X. Occlusion plane reference data will be removed. */,
                         list);
                     FUN_00410020(reinterpret_cast<BSExtraData*>(extra), true);
                     break;
@@ -20799,7 +20859,7 @@ void ResolveExtraOwner::FUN_00416be0(TESForm* owner)
                                              ->FUN_00422120());
                 }
                 else
-                    FNV_Warning(reinterpret_cast<const char*>(0x01014a80) /* No occlusion plane for occlusion plane ref extra. */);
+                    FNV_Warning(reinterpret_cast<const char*>(DAT_01014a80) /* No occlusion plane for occlusion plane ref extra. */);
             }
             break;
         }
@@ -20813,7 +20873,7 @@ void ResolveExtraOwner::FUN_00416be0(TESForm* owner)
                 if (id && !extra->pair->items[index])
                 {
                     FNV_Warning(
-                        reinterpret_cast<const char*>(0x01014a18) /* MASTERFILE: Unable to find portal linked reference %08X. Portal linked reference data will be removed. */,
+                        reinterpret_cast<const char*>(DAT_01014a18) /* MASTERFILE: Unable to find portal linked reference %08X. Portal linked reference data will be removed. */,
                         id);
                     FUN_00410020(reinterpret_cast<BSExtraData*>(extra), true);
                     break;
@@ -20824,12 +20884,12 @@ void ResolveExtraOwner::FUN_00416be0(TESForm* owner)
                 if (extra->pair->items[0])
                 {
                     FNV_Warning(
-                        reinterpret_cast<const char*>(0x010149c0) /* MASTERFILE: Both of portal %08X's linked rooms are the same (%08X). Attempting to fix. */,
+                        reinterpret_cast<const char*>(DAT_010149c0) /* MASTERFILE: Both of portal %08X's linked rooms are the same (%08X). Attempting to fix. */,
                         owner->GetFormID(), extra->pair->items[0]->GetFormID());
                     extra->pair->items[1] = 0;
                 }
                 else
-                    FNV_Warning(reinterpret_cast<const char*>(0x01014984) /* MASTERFILE: Both of portal %08X's linked rooms are NULL. */, owner->GetFormID());
+                    FNV_Warning(reinterpret_cast<const char*>(DAT_01014984) /* MASTERFILE: Both of portal %08X's linked rooms are NULL. */, owner->GetFormID());
             }
             if (extra->pair->items[0])
                 reinterpret_cast<ResolveForm*>(reinterpret_cast<TESForm*>(extra->pair->items[0]))
@@ -20852,7 +20912,7 @@ void ResolveExtraOwner::FUN_00416be0(TESForm* owner)
                 if (ref && !id)
                 {
                     FNV_Warning(
-                        reinterpret_cast<const char*>(0x01014920) /* MASTERFILE: Unable to find room linked reference %08X. Room linked reference data will be removed. */,
+                        reinterpret_cast<const char*>(DAT_01014920) /* MASTERFILE: Unable to find room linked reference %08X. Room linked reference data will be removed. */,
                         ref);
                     FUN_00410020(reinterpret_cast<BSExtraData*>(node), true);
                     break;
@@ -20875,7 +20935,7 @@ void ResolveExtraOwner::FUN_00416be0(TESForm* owner)
                 item->ref = dynamic_cast<TESObjectREFR*>(FUN_004839c0(id));
                 if (!item->ref)
                 {
-                    FNV_Warning(reinterpret_cast<const char*>(0x010148ec) /* MASTERFILE: Unable to find activate reference %08X. */, id);
+                    FNV_Warning(reinterpret_cast<const char*>(DAT_010148ec) /* MASTERFILE: Unable to find activate reference %08X. */, id);
                     if (previous)
                     {
                         previous->FUN_00905330(reinterpret_cast<void**>(&item));
@@ -20894,7 +20954,7 @@ void ResolveExtraOwner::FUN_00416be0(TESForm* owner)
             }
             if (extra->list.FUN_008256d0() && !extra->flag && !FUN_004048e0(&extra->text))
             {
-                FNV_Warning(reinterpret_cast<const char*>(0x010148b8) /* MASTERFILE: Removing empty activate parent extra. */);
+                FNV_Warning(reinterpret_cast<const char*>(DAT_010148b8) /* MASTERFILE: Removing empty activate parent extra. */);
                 FUN_00410020(reinterpret_cast<BSExtraData*>(extra), true);
             }
             break;
@@ -20904,7 +20964,7 @@ void ResolveExtraOwner::FUN_00416be0(TESForm* owner)
             extra->FUN_00433db0(owner);
             if (extra->list.FUN_008256d0())
             {
-                FNV_Warning(reinterpret_cast<const char*>(0x01014890) /* MASTERFILE: Removing empty decal extra. */);
+                FNV_Warning(reinterpret_cast<const char*>(DAT_01014890) /* MASTERFILE: Removing empty decal extra. */);
                 FUN_00410020(reinterpret_cast<BSExtraData*>(extra), true);
             }
             break;
@@ -20917,7 +20977,7 @@ void ResolveExtraOwner::FUN_00416be0(TESForm* owner)
             if (!extra->form)
             {
                 FNV_Warning(
-                    reinterpret_cast<const char*>(0x01014830) /* MASTERFILE: Unable to find merchant container %08X. Merchant container data will be removed. */, id);
+                    reinterpret_cast<const char*>(DAT_01014830) /* MASTERFILE: Unable to find merchant container %08X. Merchant container data will be removed. */, id);
                 FUN_00410020(reinterpret_cast<BSExtraData*>(extra), true);
             }
             break;
@@ -20929,7 +20989,7 @@ void ResolveExtraOwner::FUN_00416be0(TESForm* owner)
             extra->form = dynamic_cast<TESObjectREFR*>(FUN_004839c0(id));
             if (!extra->form)
             {
-                FNV_Warning(reinterpret_cast<const char*>(0x010147d8) /* MASTERFILE: Unable to find XMarker target %08X. XMarker target data will be removed. */, id);
+                FNV_Warning(reinterpret_cast<const char*>(DAT_010147d8) /* MASTERFILE: Unable to find XMarker target %08X. XMarker target data will be removed. */, id);
                 FUN_00410020(reinterpret_cast<BSExtraData*>(extra), true);
             }
             break;
@@ -20941,7 +21001,7 @@ void ResolveExtraOwner::FUN_00416be0(TESForm* owner)
             extra->form = dynamic_cast<BGSEncounterZone*>(FUN_004839c0(id));
             if (!extra->form)
             {
-                FNV_Warning(reinterpret_cast<const char*>(0x01014788) /* Unable to find encounter zone %08X. Encounter zone data will be removed. */, id);
+                FNV_Warning(reinterpret_cast<const char*>(DAT_01014788) /* Unable to find encounter zone %08X. Encounter zone data will be removed. */, id);
                 FUN_00410020(reinterpret_cast<BSExtraData*>(extra), true);
             }
             break;
@@ -20965,7 +21025,7 @@ void ResolveExtraOwner::FUN_00416be0(TESForm* owner)
             }
             if (!extra->form)
             {
-                FNV_Warning(reinterpret_cast<const char*>(0x01014728) /* MASTERFILE: Unable to find emittance source %08X. Emittance source data will be removed. */,
+                FNV_Warning(reinterpret_cast<const char*>(DAT_01014728) /* MASTERFILE: Unable to find emittance source %08X. Emittance source data will be removed. */,
                             id);
                 FUN_00410020(reinterpret_cast<BSExtraData*>(extra), true);
             }
@@ -20981,7 +21041,7 @@ void ResolveExtraOwner::FUN_00416be0(TESForm* owner)
             if (!extra->form)
             {
                 FNV_Warning(
-                    reinterpret_cast<const char*>(0x010146b8) /* MASTERFILE: Unable to find multibound ref %08X used by reference %08X. Multibound ref data will be removed. */,
+                    reinterpret_cast<const char*>(DAT_010146b8) /* MASTERFILE: Unable to find multibound ref %08X used by reference %08X. Multibound ref data will be removed. */,
                     id, owner->GetFormID());
                 FUN_00410020(reinterpret_cast<BSExtraData*>(extra), true);
             }
@@ -20993,7 +21053,7 @@ void ResolveExtraOwner::FUN_00416be0(TESForm* owner)
             extra->FUN_00433ed0(owner);
             if (extra->list.FUN_008256d0())
             {
-                FNV_Warning(reinterpret_cast<const char*>(0x01014684) /* MASTERFILE: Removing empty reflector water extra. */);
+                FNV_Warning(reinterpret_cast<const char*>(DAT_01014684) /* MASTERFILE: Removing empty reflector water extra. */);
                 FUN_00410020(reinterpret_cast<BSExtraData*>(extra), true);
             }
             break;
@@ -21003,7 +21063,7 @@ void ResolveExtraOwner::FUN_00416be0(TESForm* owner)
             extra->FUN_00434050(owner);
             if (extra->list.FUN_008256d0())
             {
-                FNV_Warning(reinterpret_cast<const char*>(0x01014658) /* MASTERFILE: Removing empty lit water extra. */);
+                FNV_Warning(reinterpret_cast<const char*>(DAT_01014658) /* MASTERFILE: Removing empty lit water extra. */);
                 FUN_00410020(reinterpret_cast<BSExtraData*>(extra), true);
             }
             break;
@@ -21015,7 +21075,7 @@ void ResolveExtraOwner::FUN_00416be0(TESForm* owner)
             extra->form = dynamic_cast<TESAmmo*>(FUN_004839c0(id));
             if (!extra->form)
             {
-                FNV_Warning(reinterpret_cast<const char*>(0x01014620) /* Unable to find ammo %08X. Ammo data will be removed. */, id);
+                FNV_Warning(reinterpret_cast<const char*>(DAT_01014620) /* Unable to find ammo %08X. Ammo data will be removed. */, id);
                 FUN_00410020(reinterpret_cast<BSExtraData*>(extra), true);
             }
             break;
@@ -21067,7 +21127,7 @@ void __cdecl FUN_0040f7d0(void*, int);
 // @fnv 0x00410140
 void RemoveExtraList::FUN_00410140(unsigned char etype)
 {
-    ::g_011c3920.Lock(reinterpret_cast<const char*>(0x01014380) /* BaseExtraList::RemoveExtra() */);
+    ::g_011c3920.Lock(reinterpret_cast<const char*>(DAT_01014380) /* BaseExtraList::RemoveExtra() */);
     XD* pprev = 0;
     XD* apExtra = (XD*)FUN_00726070(this);
     while (apExtra && ((S_0044ddc0*)apExtra)->FUN_004f1540() != etype)
@@ -21111,7 +21171,7 @@ void CopyableExtraList::FUN_00411fd0(bool abdelete)
 {
     CopyableExtraNode* pwork;
     CopyableExtraNode* plast;
-    ::g_011c3920.Lock(reinterpret_cast<const char*>(0x01014484) /* ExtraDataList::RemoveAllCopyableExtra() */);
+    ::g_011c3920.Lock(reinterpret_cast<const char*>(DAT_01014484) /* ExtraDataList::RemoveAllCopyableExtra() */);
     pwork = (CopyableExtraNode*)pHead;
     plast = 0;
     ResetTlsBufferIfListMatches(this);
@@ -21161,7 +21221,7 @@ char const* FUN_0048e730(::TESForm* form, int arg)
         if (pName != 0)
             result = pName;
         else
-            result = reinterpret_cast<const char*>(0x01011584) /*  */;
+            result = reinterpret_cast<const char*>(DAT_01011584) /*  */;
         return result;
     }
     return pTexture->FUN_00408da0();

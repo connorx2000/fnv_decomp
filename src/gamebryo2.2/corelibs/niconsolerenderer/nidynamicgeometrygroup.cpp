@@ -175,7 +175,6 @@ void* __fastcall DestroySetMap(NiTPointerMap<unsigned int, NiVBDynamicSet*>* map
 
 namespace fnv_00e95500 {
 extern MemoryManager DAT_011f6238;
-extern char DAT_01400000;
 // NiGeometryGroup's buffer-registration operation is not in the shared
 // declaration yet.  Give the external entry point its original member ABI.
 void __cdecl FUN_00e98730();
@@ -190,7 +189,7 @@ void __fastcall EnsureBuffer(NiDynamicGeometryGroup* group, void*, NiScreenTextu
         NiGeometryBufferData* newBuffer = ptr ? ::new (ptr) NiGeometryBufferData : 0;
         newBuffer->m_eRequestType = 4;
         destination->m_pkGeometryRendererData = newBuffer;
-        newBuffer->m_uiValue1 = reinterpret_cast<unsigned int>(&DAT_01400000);
+        newBuffer->m_uiValue1 = 0x01400000u;
         reinterpret_cast<RegisterBuffer>(&FUN_00e98730)(group, newBuffer);
         destination->flags = 0xffff;
     }

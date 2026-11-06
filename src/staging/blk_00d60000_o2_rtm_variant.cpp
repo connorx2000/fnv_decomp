@@ -1264,12 +1264,12 @@ struct CollisionHitFlag
 void __cdecl FUN_00d79250(void* a, void* b, CollisionHitFlag* out, int flags, float f);
 bool __cdecl FUN_00d794e0(void* a, void* b, CollisionHitFlag* out, float f);
 static int ToLowerCase(char c);
-volatile char g_d61430_c;
-char g_d61430_sink;
+extern volatile char g_d61430_c;
+extern char g_d61430_sink;
 void d61430_caller();
 static int FUN_00d61450(char c);
-volatile char g_d61450_c;
-char g_d61450_sink;
+extern volatile char g_d61450_c;
+extern char g_d61450_sink;
 void d61450_caller();
 struct D6C1B0Owner
 {
@@ -1278,8 +1278,8 @@ struct D6C1B0Owner
     int unk08;
 };
 extern "C" D6C180Command** d6c1b0_cursor_src(void);
-volatile int g_d6c1b0_a1;
-D6C1B0Owner* volatile g_d6c1b0_owner;
+extern volatile int g_d6c1b0_a1;
+extern D6C1B0Owner* volatile g_d6c1b0_owner;
 static void FUN_00d6c1b0(D6C180Command** ppkCursor, D6C1B0Owner* pOwner, int a1);
 void d6c1b0_caller(void);
 
@@ -1300,8 +1300,8 @@ struct IntegratorD720
     float state;
 };
 static float FUN_00d720a0(IntegratorD720* self, float input, float step);
-IntegratorD720* volatile integratorD720;
-volatile float inputD720, stepD720, resultD720;
+extern IntegratorD720* volatile integratorD720;
+extern volatile float inputD720, stepD720, resultD720;
 void invokeD720();
 struct FUN_00d74dc0_cls
 {
@@ -1484,10 +1484,10 @@ struct TransformPair
     LocalM128 m_row[4];
 };
 static void FUN_00d6c240(TransformPair* dest, const LocalM128* src, const TransformContext* ctx, LocalM128* out);
-TransformPair* volatile inputDest;
-const LocalM128* volatile inputSource;
-const TransformContext* volatile inputContext;
-LocalM128* volatile inputOut;
+extern TransformPair* volatile inputDest;
+extern const LocalM128* volatile inputSource;
+extern const TransformContext* volatile inputContext;
+extern LocalM128* volatile inputOut;
 void invokeTransform();
 inline void SetTransformedPositionC320(hkVector4& output, const RigidTransform& frame, const hkVector4& input)
 {
@@ -1511,10 +1511,10 @@ struct TransformOutputC320
 };
 static void __cdecl FUN_00d6c320(const PivotsC320* pivots, const ConstraintQuery* bodies, TransformOutputC320 outA,
                                  TransformOutputC320 outB);
-const ConstraintQuery* volatile bodiesSourceC320;
-const PivotsC320* volatile pivotsSourceC320;
-RigidTransform* volatile outASourceC320;
-RigidTransform* volatile outBSourceC320;
+extern const ConstraintQuery* volatile bodiesSourceC320;
+extern const PivotsC320* volatile pivotsSourceC320;
+extern RigidTransform* volatile outASourceC320;
+extern RigidTransform* volatile outBSourceC320;
 void InvokeTransformC320();
 
 extern "C" double __cdecl sqrt(double);

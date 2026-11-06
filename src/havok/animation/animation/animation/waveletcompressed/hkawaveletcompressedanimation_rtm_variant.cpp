@@ -118,9 +118,9 @@ struct e2f910_Stream
     e2f910_Cls* ctrl;
 };
 extern "C" e2f910_Cls* e2f910_obj(void);
-volatile int g_e2f910_a2 = 0;
-volatile int g_e2f910_a4 = 0;
-e2f910_Stream* volatile g_e2f910_stream = 0;
+extern volatile int g_e2f910_a2;
+extern volatile int g_e2f910_a4;
+extern e2f910_Stream* volatile g_e2f910_stream;
 static void FUN_00e2f910(e2f910_Cls* anim, int arg1, e2f910_Stream* stream, int count);
 void e2f910_probe_caller(void);
 class hkBufferE2FA
@@ -216,8 +216,8 @@ void __cdecl DecodeQuantizedBlock(const unsigned char* __restrict in, const QPar
                                   int totalCount);
 float __cdecl FUN_00e2f970(float f);
 static unsigned short FUN_00e2f9d0(unsigned short v);
-unsigned short volatile g_in;
-unsigned short g_out;
+extern unsigned short volatile g_in;
+extern unsigned short g_out;
 void caller();
 #include <xmmintrin.h>
 extern float DAT_01012068;

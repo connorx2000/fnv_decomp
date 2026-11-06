@@ -45,7 +45,7 @@ struct GlobalObjectO2_00d472a0
 {
     int x;
 };
-GlobalObjectO2_00d472a0 g_0126e600;
+extern GlobalObjectO2_00d472a0 g_0126e600;
 void __stdcall FUN_00e5c540(int, GlobalObjectO2_00d472a0*);
 void __stdcall FUN_00e5c5b0(int a);
 extern "C" void __stdcall FUN_00e5c540(int, int);

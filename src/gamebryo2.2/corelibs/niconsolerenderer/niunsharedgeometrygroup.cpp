@@ -37,7 +37,6 @@ struct P03MM
     void* __thiscall Allocate(unsigned int);
 };
 extern P03MM g_memoryManager;
-extern int DAT_01400000;
 __forceinline void* __cdecl operator new(unsigned int, void* p)
 {
     return p;
@@ -56,7 +55,7 @@ void __thiscall S::CreateScreenTextureBufferData(NiScreenTexture* pkScreenTextur
         NiGeometryBufferData* pkBuffData = pMemory ? new (pMemory) NiGeometryBufferData() : 0;
         pkBuffData->m_eRequestType = 4;
         *(NiGeometryBufferData**)((char*)pkScreenTexture + 0x1c) = pkBuffData;
-        pkBuffData->m_uiValue1 = (unsigned int)&DAT_01400000;
+        pkBuffData->m_uiValue1 = 0x01400000u;
         FUN_00e98730(pkBuffData);
     }
 }
@@ -149,7 +148,6 @@ struct Direct3DDeviceInterface;
 struct NiScreenTexture;
 struct NiSkinInstance;
 extern P03MM g_memoryManager;
-extern int DAT_01400000;
 void __stdcall FUN_00e94ee0(NiGeometryBufferData* pkBuffData, unsigned int uiStream);
 void* _fnv_zlib_memset(void*, int, unsigned int);
 struct BufEntry

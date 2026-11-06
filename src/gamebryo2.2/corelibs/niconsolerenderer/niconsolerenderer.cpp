@@ -24416,7 +24416,6 @@ bool S72_Renderer::BuildAndRegisterNodes(unsigned int uiUnused, S72_Model* pkMod
     return bOk;
 }
 
-extern void* DAT_01400000;
 struct PackingOwner_cc0 : PackingOwner {
     virtual bool NeedsUpdate();
 };
@@ -24445,7 +24444,7 @@ void PackingManager_cc0::FUN_00e74cc0(PackingEntry_cc0* entry)
     if (entry) {
         PackingPacket* packet = entry->packet;
         bool current = packet->FUN_00e8eeb0();
-        packet->flags = (unsigned int)&DAT_01400000;
+        packet->flags = 0x01400000u;
         packet->FUN_00e8ef10(1);
         unsigned short flags = entry->flags;
 

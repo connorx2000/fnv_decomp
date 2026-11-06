@@ -1,3 +1,5 @@
+extern "C" void* const DAT_0109297c[];
+
 
 // Fallout: New Vegas - original source reconstruction.
 // Source unit: fallout/ai/movement/playermover.cpp
@@ -239,7 +241,7 @@ void PlayerMover::FUN_009e9dc0(unsigned int auMode)
 // @fnv 0x009e9e30
 void PlayerMover::FUN_009e9e30()
 {
-    *reinterpret_cast<int*>(this) = 0x0109297c;
+    *reinterpret_cast<int*>(this) = (int)DAT_0109297c;
     ActorMover::~ActorMover();
 }
 

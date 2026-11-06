@@ -236,7 +236,7 @@ extern char DAT_01202a40[0x104];
 extern char DAT_01202fa0[0x104];
 void __cdecl FUN_00c3bc30(const char* p);
 extern const void* DAT_010c14a8;
-MessageHandler* MessageHandler::pHandler;
+
 struct FUN_00c3c070_Class
 {
     void* __thiscall FUN_00c3c070(int arg);

@@ -1,3 +1,7 @@
+// Distinct original implementations share reconstructed identifiers.
+// Keep each matched body under its own address-qualified name.
+#define GetRTTI GetRTTI_fnv_00688590
+
 #include "../../../include/BSDismemberSkinInstance.h"
 #include "../../../include/BSTempEffectGeometryDecal.h"
 #include "../../../include/NiPoint3.h"
